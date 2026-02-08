@@ -1,0 +1,9 @@
+name = "functions"
+compatibility_date = "2024-04-01"
+pages_build_output_dir = "./public"
+
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bazaar"
+database_id = "3f8a824b-d78f-4250-b72c-a36975b57d78"
