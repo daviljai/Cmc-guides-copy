@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazaar Items - CraftersMC Guides</title>
+  <link rel="stylesheet" href="css/essential.css" />
+  <style>
+    /* Keep all your CSS styles from before */
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #1a1a2e;
+    }
+
+    .right, .left {
+      margin: 0;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 2px 2px auto 2px 2px;
+      grid-template-rows: 2px 2px auto 2px 2px;
+      grid-template-areas:
+        "tl-tl tr-tl t tl-tr tr-tr"
+        "bl-tl br-tl t bl-tr br-tr"
+        "l l inv r r"
+        "tl-bl tr-bl b tl-br tr-br"
+        "bl-bl br-bl b bl-br br-br";
+    }
+
+    .s-br {
+      box-shadow: 2px 0 0 black, 0 2px 0 black;
+    }
+
+    .s-bl {
+      box-shadow: -2px 0 0 black, 0 2px 0 black;
+    }
+
+    .s-tr {
+      box-shadow: 0 -2px 0 black, 2px 0 0 black;
+    }
+
+    .s-tl {
+      box-shadow: 0 -2px 0 black, -2px 0 0 black;
+    }
+
+    .corner-top {
+      grid-area: t;
+      box-shadow: 0 -2px 0 black;
+      background-color: #ffffff;
+    }
+
+    .corner-left {
+      grid-area: l;
+      box-shadow: -2px 0 0 black;
+      background-color: #ffffff;
+    }
+
+    .corner-right {
+      grid-area: r;
+      box-shadow: 2px 0 0 black;
+      background-color: #555555;
+    }
+
+    .corner-bottom {
+      grid-area: b;
+      box-shadow: 0 2px 0 black;
+      background-color: #555555;
+    }
+
+    .inner-container {
+      background-color: #c6c6c6;
+      grid-area: inv;
+      grid-column: inherit;
+    }
+
+    .tl-tl {
+      grid-area: tl-tl;
+      background-color: #ffffff;
+      position: relative;
+      bottom: -4px;
+      right: -4px;
+    }
+
+    .br-br {
+      grid-area: br-br;
+      background-color: #555555;
+      position: relative;
+      top: -4px;
+      left: -4px;
+    }
+
+    .bl-tl,
+    .tr-tl,
+    .br-tl {
+      background-color: #ffffff;
+    }
+
+    .bl-tl {
+      grid-area: bl-tl;
+    }
+
+    .tr-tl {
+      grid-area: tr-tl;
+    }
+
+    .br-tl {
+      grid-area: br-tl;
+    }
+
+    .bl-tr {
+      grid-area: bl-tr;
+      background-color: #c6c6c6;
+    }
+
+    .tr-bl {
+      grid-area: tr-bl;
+      background-color: #c6c6c6;
+    }
+
+    .tr-br,
+    .tl-br,
+    .bl-br {
+      background-color: #555555;
+    }
+
+    .tr-br {
+      grid-area: tr-br;
+    }
+
+    .tl-br {
+      grid-area: tl-br;
+    }
+
+    .bl-br {
+      grid-area: bl-br;
+    }
+
+    .inventory {
+      padding: 0.4rem;
+      display: grid;
+    }
+
+    .inventory .inner-container,
+    .hotbar-extreme-inner-container {
+      display: grid;
+      grid-column: inherit;
+    }
+
+    .cell {
+      box-shadow: inset 2px 2px 0 0 #373737, inset -2px -2px 0 0 #ffffff;
+      background-color: #8b8b8b;
+      height: 2rem;
+      width: 2rem;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cell:hover {
+      background-color: #a1a1a1;
+    }
+
+    .cell::before,
+    .cell::after {
+      content: "";
+      height: 2px;
+      width: 2px;
+      background-color: #8b8b8b;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .cell::after {
+      top: auto;
+      right: auto;
+      left: 0;
+      bottom: 0;
+    }
+
+    .extreme-inner-container,
+    .hotbar-extreme-inner-container {
+      color: #262626;
+      display: grid;
+      grid-template-columns: repeat(9, auto);
+      grid-template-rows: repeat(4, auto);
+    }
+
+    .hotbar-extreme-inner-container {
+      margin-top: 0.5rem;
+    }
+
+    .inner-container h3 {
+      margin: 0 auto 8px auto;
+      font-size: 1.2rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .cell img {
+      height: 1.5rem;
+      width: 1.5rem;
+      margin: 0.25rem;
+    }
+
+    .cat {
+      background-color: #c6c6c6;
+      box-shadow: inset 4px 4px 0 0 #fff;
+      height: 2rem;
+      width: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .cat:hover {
+      background-color: #d6d6d6;
+    }
+
+    .cat.active {
+      background-color: #a6a6a6;
+      box-shadow: inset 4px 4px 0 0 #777;
+    }
+
+    .cat img {
+      height: 1.5rem;
+      width: 1.5rem;
+      margin: 0;
+    }
+
+    .catnav {
+      position: relative;
+      display: flex;
+      gap: 0.5rem;
+      margin-left: 4px;
+    }
+
+    .api-panel {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #1e293b;
+      border: 2px solid #3b82f6;
+      border-radius: 6px;
+      padding: 15px;
+      width: 300px;
+      z-index: 1000;
+    }
+
+    .api-input-group {
+      margin-bottom: 10px;
+    }
+
+    .api-input-group label {
+      display: block;
+      color: #cbd5e1;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .api-input-group input,
+    .api-input-group select {
+      width: 100%;
+      padding: 8px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 4px;
+      color: #e2e8f0;
+    }
+
+    .api-button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .api-button:hover {
+      background: #2563eb;
+    }
+
+    .item-tooltip {
+      position: absolute;
+      left: 110%;
+      top: 0;
+      background: #2d143b;
+      color: #ffe16b;
+      border: 2px solid #4b267a;
+      border-radius: 6px;
+      padding: 12px;
+      z-index: 100;
+      min-width: 250px;
+      font-family: 'Minecraft', 'Arial', sans-serif;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      white-space: normal;
+      box-shadow:
+        0 0 0 2px #4b267a,
+        -4px -4px 0 0 #fff,
+        4px -4px 0 0 #fff,
+        -4px 4px 0 0 #555,
+        4px 4px 0 0 #555;
+      font-weight: bold;
+      display: none;
+    }
+
+    .item-with-sub:hover .item-tooltip {
+      display: block;
+    }
+
+    .item-tooltip .item-title {
+      color: #6d5cff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .item-tooltip .item-data {
+      margin-top: 8px;
+      border-top: 1px solid #4b267a;
+      padding-top: 8px;
+    }
+
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    .data-label {
+      color: #a3a3ff;
+    }
+
+    .data-value {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .price-up {
+      color: #4CAF50 !important;
+    }
+
+    .price-down {
+      color: #F44336 !important;
+    }
+
+    .loading {
+      color: #ffd700;
+      font-style: italic;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .error {
+      color: #ff6b6b;
+      font-size: 11px;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #ff6b6b;
+      border-radius: 3px;
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .success {
+      color: #4CAF50;
+      font-size: 11px;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #4CAF50;
+      border-radius: 3px;
+      background: rgba(76, 175, 80, 0.1);
+    }
+
+    .sub-items-grid {
+      display: flex;
+/*      grid-template-columns: repeat(2, 1fr);*/
+      gap: 4px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      justify-content: start;
+    }
+
+    .sub-item {
+      text-align: center;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .sub-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .sub-item img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 2px;
+    }
+
+    .sub-item-name {
+      font-size: 9px;
+      color: #ccc;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .status-live {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4CAF50;
+      border: 1px solid #4CAF50;
+    }
+
+    .status-mock {
+      background: rgba(255, 152, 0, 0.2);
+      color: #ff9800;
+      border: 1px solid #ff9800;
+    }
+
+    .status-error {
+      background: rgba(244, 67, 54, 0.2);
+      color: #f44336;
+      border: 1px solid #f44336;
+    }
+
+    #apiStatus {
+      min-height: 20px;
+      margin-top: 10px;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    .item-slot {
+      position: relative;
+      width: 48px;
+    }
+
+    .item-slot img {
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      image-rendering: pixelated;
+    }
+
+    /* ================= Tooltip Core ================= */
+
+    .tooltip {
+      position: absolute;
+      top: 0;
+      left: 60px;
+      display: block;
+      z-index: 10;
+      box-sizing: content-box;
+      font-family: monospace;
+    }
+
+    .mc-frame {
+      position: relative;
+      padding: 10px;
+      background: linear-gradient(#1a0f1f, #120915);
+      color: #dcdcdc;
+      font-size: 14px;
+      line-height: 1.3;
+      width: 184px;
+      height: calc(90% - 2px);
+      box-sizing: content-box;
+      min-height: 190px;
+    }
+
+    .mc-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      height: 190px;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ================= Corners ================= */
+
+    .mc-corner {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      z-index: 3;
+    }
+
+    .mc-corner.tl {
+      top: 0;
+      left: 0;
+      background: #000;
+    }
+
+    .mc-corner.tr {
+      top: 0;
+      right: 0px;
+      background: #000;
+    }
+
+    .mc-corner.bl {
+      bottom: 0;
+      left: 0;
+      background: #000;
+    }
+
+    .mc-corner.br {
+      bottom: 0;
+      right: 0;
+      background: #000;
+    }
+
+    /* ================= Edges ================= */
+
+    .mc-edge {
+      position: absolute;
+      z-index: 1;
+      background: #2c0863;
+    }
+
+    .mc-edge.top {
+      top: 0;
+      left: 2px;
+      right: 4px;
+      height: 2px;
+      box-shadow: 0 -2px 0 #000;
+      width: 198.5px;
+    }
+
+    .mc-edge.bottom {
+      bottom: 2px;
+      left: 2px;
+      right: 4px;
+      height: 2px;
+      box-shadow: 0 2px 0 #000;
+      width: 198.5px;
+    }
+
+    .mc-edge.left {
+      top: 2px;
+      bottom: 4px;
+      left: 0;
+      width: 2px;
+      height: 207.5px;
+      box-shadow: -2px 0 0 #000;
+    }
+
+    .mc-edge.right {
+      top: 2px;
+      bottom: 4px;
+      right: 0px;
+      width: 2px;
+      height: 207px;
+      box-shadow: 2px 0 0 #000;
+    }
+
+    /* ================= Text Styling ================= */
+
+    .title {
+      color: #55ff55;
+      font-weight: bold;
+    }
+
+    .rarity {
+      color: #55ff55;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .row {
+      display: flex;
+      gap: 4px;
+    }
+
+    .gold {
+      color: #ffaa00;
+    }
+
+    .muted {
+      color: #aaaaaa;
+      font-size: 13px;
+      width: max-content;
+    }
+
+    .spacer {
+      height: 6px;
+    }
+
+    .cta {
+      color: #ffff55;
+      margin-top: 6px;
+      width: max-content;
+    }
+
+    .tooltip {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contain">
+    <div class="catnav">
+      <div id="farming" class="cat active"><img src="assets/ui-icons/ui_bazaar_category_farming_active.png"></div>
+      <div id="mining" class="cat"><img src="assets/ui-icons/ui_bazaar_category_mining_active.png"></div>
+      <div id="combat" class="cat"><img src="assets/ui-icons/ui_bazaar_category_combat_active.png"></div>
+      <div id="foraging" class="cat"><img src="assets/ui-icons/ui_bazaar_category_foraging_active.png"></div>
+      <div id="special" class="cat"><img src="img/Magical_Encyclopedia.png"></div>
+      <div id="minion" class="cat"><img src="img/cobblestone-minion/Cobblestone_Minion.png"></div>
+    </div>
+    <div class="container">
+      <div class="corner-left"></div>
+      <div class="corner-right"></div>
+      <div class="corner-bottom"></div>
+      <div class="corner-top"></div>
+      <div class="tl-tl"></div>
+      <div class="tr-tl s-tl"></div>
+      <div class="bl-tl s-tl"></div>
+      <div class="br-tl"></div>
+      <div class="tr-bl s-bl"></div>
+      <div class="bl-tr s-tr"></div>
+      <div class="tl-br"></div>
+      <div class="tr-br s-br"></div>
+      <div class="bl-br s-br"></div>
+      <div class="br-br"></div>
+      <div class="inventory inner-container">
+        <h3>Bazaar Market</h3>
+        <div class="extreme-inner-container" id="mainGrid">
+          <!-- Cells will be populated by JavaScript -->
+        </div>
+        <div class="hotbar-extreme-inner-container" id="hotbarGrid">
+          <!-- Hotbar cells -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Proxy Client Library -->
+  <script src="js/api-proxy-client.js"></script>
+  
+  <script>
+    // ==================== CONFIGURATION ====================
+    // Default proxy URL — use local Pages Function route (same-origin)
+    // Using `APIProxyClient` default configuration (no explicit proxy URL)
+
+    // Item ID mapping for API calls
+    const itemIdMap = {};
+
+    // Cache for API responses
+    const bazaarCache = new Map();
+
+    const farmingItems = [
+      {
+        name: "Wheat Items",
+        img: "Wheat.webp",
+        subItems: [
+          { name: "Wheat", img: "Wheat.webp", id: "wheat" },
+          { name: "Enchanted Wheat", img: "Enchanted_Wheat.webp", id: "enchanted_wheat" },
+          { name: "Enchanted Bread", img: "Enchanted_Bread.webp", id: "enchanted_bread" },
+          { name: "Haybale", img: "Hay_Bale.webp", id: "hay_block" },
+          { name: "Enchanted Haybale", img: "Enchanted_Hay_Bale.webp", id: "enchanted_hay_bale_new" },
+          { name: "Wheat Seeds", img: "Wheat_Seeds.webp",id: "wheat_seeds" },
+          { name: "Box of Seeds", img: "100px-Box_of_Seeds.webp", id: "" }
+        ]
+      },
+      {
+        name: "Carrot Items",
+        img: "Carrot.webp",
+        subItems: [
+          { name: "Carrot", img: "Carrot.webp" },
+          { name: "Enchanted Carrot", img: "Enchanted_Carrot.png" },
+          { name: "Enchanted Golden Carrot", img: "Enchanted_Golden_Carrot.png" }
+        ]
+      },
+      {
+        name: "Potato Items",
+        img: "Potato.png",
+        subItems: [
+          { name: "Potato", img: "Potato.png" },
+          { name: "Enchanted Potato", img: "Enchanted_Potato.png" },
+          { name: "Enchanted Cooked Potato", img: "Enchanted_Cooked_Potato.webp" }
+        ]
+      },
+      {
+        name: "Beetroot Items",
+        img: "Beetroot.webp",
+        subItems: [
+          { name: "Beetroot", img: "Beetroot.webp" },
+          { name: "Enchanted Beetroot", img: "Enchanted_Beetroot.webp" },
+          { name: "Enchanted Golden Beetroot", img: "Enchanted_Golden_Beetroot.webp" },
+          { name: "Beetroot Seeds", img: "150px-Beetroot_Seeds_JE2_BE2.webp" }
+        ]
+      },
+      {
+        name: "Pumpkin Items",
+        img: "Pumpkin.webp",
+        subItems: [
+          { name: "Pumpkin", img: "Pumpkin.webp" },
+          { name: "Enchanted Pumpkin", img: "Enchanted_Pumpkin.webp" },
+          { name: "Polished Pumpkin", img: "Polished_Pumpkin.webp" }
+        ]
+      },
+      {
+        name: "Melon Items",
+        img: "Melon.webp",
+        subItems: [
+          { name: "Melon", img: "Melon.webp", id: "melon_slice" },
+          { name: "Enchanted Melon", img: "Enchanted_Melon.png" },
+          { name: "Melon Block", img: "Melon_Block.png" },
+          { name: "Enchanted Melon Block", img: "Enchanted_Melon_Block.webp" }
+        ]
+      },
+      {
+        name: "Brown Mushroom Items",
+        img: "Minecraft_items_brown_mushroom.png",
+        subItems: [
+          { name: "Brown Mushroom", img: "Minecraft_items_brown_mushroom.png" },
+          { name: "Enchanted Brown Mushroom", img: "Enchanted_Brown_Mushroom.webp" },
+          { name: "Brown Mushroom Block", img: "Brown_Mushroom_Block.png" },
+          { name: "Enchanted Brown Mushroom Block", img: "Enchanted_Brown_Mushroom_Block.png" },
+          { name: "Red Mushroom", img: "Minecraft_items_red_mushroom.png" },
+          { name: "Enchanted Red Mushroom", img: "Enchanted_Red_Mushroom.webp" },
+          { name: "Red Mushroom Block", img: "Red_Mushroom_Block.png" },
+          { name: "Enchanted Red Mushroom Block", img: "Enchanted_Red_Mushroom_Block.webp" },
+        ]
+      },
+      {
+        name: "Cocoa Beans Items",
+        img: "Cocoa_Beans.webp",
+        subItems: [
+          { name: "Cocoa Beans", img: "Cocoa_Beans.webp" },
+          { name: "Enchanted Cocoa Beans", img: "Enchanted_Cocoa_Beans.webp" },
+          { name: "Enchanted Cookie", img: "Enchanted_Cookie.webp" }
+        ]
+      },
+      {
+        name: "Cactus Items",
+        img: "Cactus.webp",
+        subItems: [
+          { name: "Cactus", img: "Cactus.webp" },
+          { name: "Enchanted Cactus Green", img: "Enchanted_Cactus_Green.webp" },
+          { name: "Enchanted Cactus", img: "Enchanted_Cactus.png" }
+        ]
+      },
+      {
+        name: "Sugar Cane Items",
+        img: "Sugar_Cane.webp",
+        subItems: [
+          { name: "Sugar Cane", img: "Sugar_Cane.webp" },
+          { name: "Enchanted Sugar Cane", img: "Enchanted_Sugar_Cane.webp" },
+          { name: "Enchanted Sugar", img: "Enchanted_Sugar.webp" },
+          { name: "Enchanted Paper", img: "Enchanted_Paper.webp" },
+          { name: "Enchanted Bookshelf", img: "300px-Enchanted_Bookshelf.webp" }
+        ]
+      },
+      {
+        name: "Leather Items",
+        img: "Leather.png",
+        subItems: [
+          { name: "Leather", img: "Leather.png" },
+          { name: "Enchanted Leather", img: "Enchanted_Leather.png" },
+          { name: "Raw Beef", img: "Raw_Beef.png", id: "beef" },
+          { name: "Enchanted Raw Beef", img: "Enchanted_Raw_Beef.png" }
+        ]
+      },
+      {
+        name: "Raw Porkchop Items",
+        img: "Raw_Porkchop.webp",
+        subItems: [
+          { name: "Raw Porkchop", img: "Raw_Porkchop.webp", id: "porkchop" },
+          { name: "Enchanted Raw Porkchop", img: "Enchanted_Raw_Porkchop.webp" },
+          { name: "Enchanted Cooked Porkchop", img: "Enchanted_Cooked_Porkchop.webp" }
+        ]
+      },
+      {
+        name: "Raw Chicken Items",
+        img: "Raw_Chicken.png",
+        subItems: [
+          { name: "Raw Chicken", img: "Raw_Chicken.png", id: "chicken" },
+          { name: "Enchanted Raw Chicken", img: "Enchanted_Raw_Chicken.webp" },
+          { name: "Feather", img: "Feather.png" },
+          { name: "Enchanted Feather", img: "Enchanted_Feather.webp" },
+          { name: "Egg", img: "Egg.webp" },
+          { name: "Enchanted Egg", img: "Enchanted_Egg.webp" }
+        ]
+      },
+      {
+        name: "Raw Duck Items",
+        img: "Raw_Duck.png",
+        subItems: [
+          { name: "Raw Duck", img: "Raw_Duck.png" },
+          { name: "Enchanted Raw Duck", img: "Enchanted_Raw_Duck.webp" },
+          { name: "Duck Egg", img: "Duck_Egg.webp" },
+          { name: "Enchanted Duck Egg", img: "Enchanted_Duck_Egg.webp" },
+          { name: "Super Enchanted Duck Egg", img: "Super_Enchanted_Duck_Egg.webp" },
+          { name: "Golden Feather", img: "Golden_Feather.webp" }
+        ]
+      },
+      {
+        name: "Raw Mutton Items",
+        img: "Raw_Mutton.webp",
+        subItems: [
+          { name: "Raw Mutton", img: "Raw_Mutton.webp", id: "mutton" },
+          { name: "Enchanted Raw Mutton", img: "Enchanted_Raw_Mutton.png" },
+          { name: "Enchanted Cooked Mutton", img: "Enchanted_Cooked_Mutton.png" },
+          { name: "White Wool", img: "Wool.png" },
+          { name: "Enchanted Wool", img: "Enchanted_Wool.png" }
+        ]
+      },
+      {
+        name: "Raw Rabbit Items",
+        img: "Raw_Rabbit.png",
+        subItems: [
+          { name: "Raw Rabbit", img: "Raw_Rabbit.png" },
+          { name: "Enchanted Raw Rabbit", img: "Enchanted_Raw_Rabbit.png", id: "rabbit" },
+          { name: "Rabbit Foot", img: "Rabbit's_Foot_JE3_BE2.webp" },
+          { name: "Enchanted Rabbit Foot", img: "Enchanted_Rabbit_Foot.png" },
+          { name: "Rabbit Hide", img: "Rabbit_Hide_JE3_BE2.webp" },
+          { name: "Enchanted Rabbit Hide", img: "Enchanted_Rabbit_Hide.png" }
+        ]
+      },
+      {
+        name: "Cropie Items",
+        img: "100px-Cropie.webp",
+        subItems: [
+          { name: "Cropie", img: "100px-Cropie.webp" },
+          { name: "Squash", img: "100px-Squash.webp" },
+          { name: "Fermento", img: "100px-Fermento.png" },
+          { name: "Condensed Fermento", img: "100px-Condensed_Fermento.webp" }
+        ]
+      }
+    ];
+
+    // Mining items
+    const miningItems = [
+      {
+        name: "Cobblestone Items",
+        img: "Cobblestone.png",
+        subItems: [
+          { name: "Cobblestone", img: "Cobblestone.png" },
+          { name: "Enchanted Cobblestone", img: "Enchanted_Cobblestone.png" }
+        ]
+      },
+      {
+        name: "Coal Items",
+        img: "Coal.webp",
+        subItems: [
+          { name: "Coal", img: "Coal.webp" },
+          { name: "Enchanted Coal", img: "Enchanted_Coal.png" },
+          { name: "Enchanted Coal Block", img: "Enchanted_Coal_Block.png" },
+          { name: "Enchanted Charcoal", img: "Enchanted_Charcoal.webp" }
+        ]
+      },
+      {
+        name: "Iron Ingot Items",
+        img: "Iron_Ingot.webp",
+        subItems: [
+          { name: "Iron Ingot", img: "Iron_Ingot.webp" },
+          { name: "Enchanted Iron Ingot", img: "Enchanted_Iron_Ingot.webp" },
+          { name: "Enchanted Iron Block", img: "Enchanted_Iron_Block.webp" }
+        ]
+      },
+      {
+        name: "Gold Ingot Items",
+        img: "Gold_Ingot.png",
+        subItems: [
+          { name: "Gold Ingot", img: "Gold_Ingot.png" },
+          { name: "Enchanted Gold Ingot", img: "Enchanted_Gold.png" },
+          { name: "Enchanted Gold Block", img: "Enchanted_Gold_Block.png" }
+        ]
+      },
+      {
+        name: "Diamond Items",
+        img: "Diamond.png",
+        subItems: [
+          { name: "Diamond", img: "Diamond.png" },
+          { name: "Enchanted Diamond", img: "Enchanted_Diamond.png" },
+          { name: "Enchanted Diamond Block", img: "Enchanted_Diamond_Block.png" }
+        ]
+      },
+      {
+        name: "Lapis Lazuli Items",
+        img: "Lapis_Lazuli.webp",
+        subItems: [
+          { name: "Lapis Lazuli", img: "Lapis_Lazuli.webp" },
+          { name: "Enchanted Lapis Lazuli", img: "Enchanted_Lapis_Lazuli.webp" },
+          { name: "Enchanted Lapis Block", img: "Enchanted_Lapis_Block.webp" }
+        ]
+      },
+      {
+        name: "Emerald Items",
+        img: "Emerald.png",
+        subItems: [
+          { name: "Emerald", img: "Emerald.png" },
+          { name: "Enchanted Emerald", img: "Enchanted_Emerald.png" },
+          { name: "Enchanted Emerald Block", img: "Enchanted_Emerald_Block.png" }
+        ]
+      },
+      {
+        name: "Redstone Dust Items",
+        img: "Redstone_Dust.webp",
+        subItems: [
+          { name: "Redstone", img: "Redstone_Dust.webp" },
+          { name: "Enchanted Redstone Dust", img: "Enchanted_Redstone_Dust.png" },
+          { name: "Enchanted Redstone Block", img: "Enchanted_Redstone_Block.webp" }
+        ]
+      },
+      {
+        name: "Obsidian Items",
+        img: "Obsidian.webp",
+        subItems: [
+          { name: "Obsidian", img: "Obsidian.webp" },
+          { name: "Enchanted Obsidian", img: "Enchanted_Obsidian.webp" }
+        ]
+      },
+      {
+        name: "Ice Items",
+        img: "Ice.png",
+        subItems: [
+          { name: "Ice", img: "Ice.png" },
+          { name: "Packed Ice", img: "Packed_Ice.png" },
+          { name: "Enchanted Ice", img: "Enchanted_Ice.webp" },
+          { name: "Enchanted Packed Ice", img: "Enchanted_Packed_Ice.webp" }
+        ]
+      },
+      {
+        name: "End Items",
+        img: "End_Stone.png",
+        subItems: [
+          { name: "End Stone", img: "End_Stone.png" },
+          { name: "Enchanted End Stone", img: "Enchanted_End_Stone.webp" }
+        ]
+      }
+    ];
+
+    // Combat items
+    const combatItems = [
+      {
+        name: "Rotten Flesh Items",
+        img: "Rotten_Flesh.webp",
+        subItems: [
+          { name: "Rotten Flesh", img: "Rotten_Flesh.webp" },
+          { name: "Enchanted Rotten Flesh", img: "Enchanted_Rotten_Flesh.png" }
+        ]
+      },
+      {
+        name: "Bone Items",
+        img: "Bone.webp",
+        subItems: [
+          { name: "Bone", img: "Bone.webp" },
+          { name: "Enchanted Bone", img: "Enchanted_Bone.webp" }
+        ]
+      },
+      {
+        name: "String Items",
+        img: "String.webp",
+        subItems: [
+          { name: "String", img: "String.webp" },
+          { name: "Enchanted String", img: "Enchanted_String.webp" },
+          { name: "Spider Eye", img: "Spider_Eye.webp" },
+          { name: "Enchanted Spider Eye", img: "Enchanted_Spider_Eye.webp" },
+          { name: "Enchanted Fermented Spider Eye", img: "Enchanted_Fermented_Spider_Eye.png" }
+        ]
+      },
+      {
+        name: "Gunpowder Items",
+        img: "Gunpowder.webp",
+        subItems: [
+          { name: "Gunpowder", img: "Gunpowder.webp" },
+          { name: "Enchanted Gunpowder", img: "Enchanted_Gunpowder.webp" },
+          { name: "Enchanted Fireworks", img: "Enchanted_Firework.png" },
+        ]
+      },
+      {
+        name: "Slime Ball Items",
+        img: "Slime_Ball.webp",
+        subItems: [
+          { name: "Slime Ball", img: "Slime_Ball.webp" },
+          { name: "Enchanted Slime Ball", img: "Enchanted_Slime_Ball.png", id: "enchanted_slimeball" },
+          { name: "Enchanted Slime Block", img: "Enchanted_Slime_Block.png" }
+        ]
+      },
+      {
+        name: "Magma Cream Items",
+        img: "Magma_Cream.webp",
+        subItems: [
+          { name: "Magma Cream", img: "Magma_Cream.webp" },
+          { name: "Enchanted Magma Cream", img: "Enchanted_Magma_Cream.png" }
+        ]
+      },
+      {
+        name: "Blaze Rod Items",
+        img: "Blaze_Rod.webp",
+        subItems: [
+          { name: "Blaze Rod", img: "Blaze_Rod.webp" },
+          { name: "Enchanted Blaze Powder", img: "Enchanted_Blaze_Powder.webp" },
+          { name: "Enchanted Blaze Rod", img: "Enchanted_Blaze_Rod.png" }
+        ]
+      },
+      {
+        name: "Envoy's Horn Items",
+        img: "100px-Envoy's_Horn.webp",
+        subItems: [
+          { name: "Envoy's Horn", img: "100px-Envoy's_Horn.webp", id: "envoy_horns" },
+          { name: "Fire Fragment", img: "Fire_Fragment.webp" }
+        ]
+      },
+      {
+        name: "Revenant Flesh Items",
+        img: "Revenant_Flesh.webp",
+        subItems: [
+          { name: "Revenant Flesh", img: "Revenant_Flesh.webp" },
+          { name: "Revenant Viscera", img: "Revenant_Viscera.webp" },
+          { name: "Golden Powder", img: "Golden_Powder.webp" },
+          { name: "Undead Catalyst", img: "Undead_Catalyst.webp" },
+          { name: "Revenant Catalyst", img: "Revenant_Catalyst.webp" }
+        ]
+      },
+      {
+        name: "Wolf Tooth Items",
+        img: "Wolf_Tooth.png",
+        subItems: [
+          { name: "Wolf Tooth", img: "Wolf_Tooth.png" },
+          { name: "Golden Tooth", img: "Golden_Tooth.png" },
+          { name: "Glacial Fang", img: "100px-Glacial_Fang.webp" },
+          { name: "Weak Wolf Catalyst", img: "Weak_Wolf_Catalyst.png" }
+        ]
+      }
+    ];
+
+    // Foraging items
+    const foragingItems = [
+      {
+        name: "Oak Log Items",
+        img: "Oak_Log.png",
+        subItems: [
+          { name: "Oak Log", img: "Oak_Log.png" },
+          { name: "Enchanted Oak Log", img: "Enchanted_Oak_Log.webp" }
+        ]
+      },
+      {
+        name: "Spruce Log Items",
+        img: "Spruce_Log.png",
+        subItems: [
+          { name: "Spruce Log", img: "Spruce_Log.png" },
+          { name: "Enchanted Spruce Log", img: "Enchanted_Spruce_Log.png" }
+        ]
+      },
+      {
+        name: "Birch Log Items",
+        img: "Birch_Log.png",
+        subItems: [
+          { name: "Birch Log", img: "Birch_Log.png" },
+          { name: "Enchanted Birch Log", img: "Enchanted_Birch_Log.webp" }
+        ]
+      },
+      {
+        name: "Jungle Log Items",
+        img: "Jungle_Log.png",
+        subItems: [
+          { name: "Jungle Log", img: "Jungle_Log.png" },
+          { name: "Enchanted Jungle Log", img: "Enchanted_Jungle_Log.webp" }
+        ]
+      },
+      {
+        name: "Dark Oak Log Items",
+        img: "Dark_Oak_Log.png",
+        subItems: [
+          { name: "Dark Oak Log", img: "Dark_Oak_Log.png" },
+          { name: "Enchanted Dark Oak Log", img: "Enchanted_Dark_Oak_Log.webp" }
+        ]
+      },
+      {
+        name: "Acacia Log Items",
+        img: "Acacia_Log.png",
+        subItems: [
+          { name: "Acacia Log", img: "Acacia_Log.png" },
+          { name: "Enchanted Acacia Log", img: "Enchanted_Acacia_Log.webp" }
+        ]
+      },
+      {
+        name: "Bamboo Items",
+        img: "100px-Bamboo.webp",
+        subItems: [
+          { name: "Bamboo", img: "100px-Bamboo.webp" },
+          { name: "Enchanted Bamboo", img: "100px-Enchanted_Bamboo.webp" }
+        ]
+      }
+    ];
+
+    // Oddities/Special items
+    const specialItems = [
+      {
+        name: "Enchanted Book Items",
+        img: "100px-Enchanted_Book.gif",
+        subItems: [
+          {
+            name: "Replenish Enchant Book",
+            img: "100px-Enchanted_Book.gif",
+            id: "replenish_1",
+            subItems: []
+          },
+          {
+            name: "Delicate V Enchant Book",
+            img: "100px-Enchanted_Book.gif",
+            id: "Delicate_5",
+            subItems: []
+          },
+          {
+            name: "Critical Enchant Book Items",
+            img: "100px-Enchanted_Book.gif",
+            subItems: [
+              { name: "Critical VI Enchant Book", img: "100px-Enchanted_Book.gif", id: "critical_6" },
+              { name: "Critical VII Enchant Book", img: "100px-Enchanted_Book.gif", id: "critical_7" }
+            ]
+          },
+          {
+            name: "Smite Enchant Book Items",
+            img: "100px-Enchanted_Book.gif",
+            subItems: [
+              { name: "Smite VI Enchant Book", img: "100px-Enchanted_Book.gif", id: "smite_6" },
+              { name: "Smite VII Enchant Book", img: "100px-Enchanted_Book.gif", id: "smite_7" }
+            ]
+          },
+          {
+            name: "Respite Enchant Book Items",
+            img: "100px-Enchanted_Book.gif",
+            subItems: [
+              { name: "Respite I Enchant Book", img: "100px-Enchanted_Book.gif", id: "respite_1" },
+              { name: "Respite II Enchant Book", img: "100px-Enchanted_Book.gif", id: "respite_2" },
+              { name: "Respite III Enchant Book", img: "100px-Enchanted_Book.gif", id: "respite_3" }
+            ]
+          },
+          {
+            name: "Turbo-Crop Enchant Books Items",
+            img: "100px-Enchanted_Book.gif",
+            subItems: [
+              {
+                name: "Turbo-Wheat Enchant Book Items", img: "100px-Enchanted_Book.gif",
+                subItems: [
+                  { name: "Turbo-Wheat I Enchant Book", img: "100px-Enchanted_Book.gif" },
+                  { name: "Turbo-Wheat II Enchant Book", img: "100px-Enchanted_Book.gif" },
+                  { name: "Turbo-Wheat III Enchant Book", img: "100px-Enchanted_Book.gif" },
+                  { name: "Turbo-Wheat IV Enchant Book", img: "100px-Enchanted_Book.gif" },
+                  { name: "Turbo-Wheat V Enchant Book", img: "100px-Enchanted_Book.gif" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Item Upgrades",
+        img: "Hot_Potato_Book.webp",
+        subItems: [
+          { name: "Hot Potato Book", img: "Hot_Potato_Book.webp", id: "hot_potato" },
+          { name: "The Art Of War", img: "100px-The_Art_of_War.png" },
+          { name: "Farming For Dummies", img: "100px-Farming_for_Dummies.webp" },
+        ]
+      },
+      {
+        name: "Bottle o' Enchanting Items",
+        img: "Bottle_o'_Enchanting.webp",
+        subItems: [
+          { name: "Bottle o' Enchanting", img: "Bottle_o'_Enchanting.webp", id: "experience_bottle" },
+          { name: "Grand Experience Bottle", img: "Grand_Experience_Bottle.webp" },
+          { name: "Titanic Experience Bottle", img: "Titanic_Experience_Bottle.webp" },
+          { name: "Colossal Experience Bottle", img: "Colossal_Experience_Bottle.webp" },
+        ]
+      }
+    ];
+
+    // Minion items
+    const minionItems = [
+      { name: "Acacia Minion Tiers", img: "acacia-minion/Acacia_Log_Minion.png", subItems: [] },
+      { name: "Bamboo Minion Tiers", img: "bamboo-minion/100px-Bamboo_Minion_(Tier_1).webp", subItems: [] },
+      { name: "Beetroot Minion Tiers", img: "beetroot-minion/Beetroot_Minion.webp", subItems: [] },
+      { name: "Birch Minion Tiers", img: "birch-minion/Birch_Log_Minion.png", subItems: [] },
+      { name: "Blaze Minion Tiers", img: "blaze-minion/Blaze_Minion.png", subItems: [] },
+      { name: "Cactus Minion Tiers", img: "cactus-minion/Cactus_Minion.png", subItems: [] },
+      { name: "Carrot Minion Tiers", img: "carrot-minion/Carrot_Minion.png", subItems: [] },
+      { name: "Chicken Minion Tiers", img: "chicken-minion/Chicken_Minion.png", subItems: [] },
+      { name: "Coal Minion Tiers", img: "coal-minion/Coal_Minion.png", subItems: [] },
+      { name: "Cobblestone Minion Tiers", img: "cobblestone-minion/Cobblestone_Minion.png", subItems: [] },
+      { name: "Cocoa Minion Tiers", img: "cocoa-minion/Cocoa_Beans_Minion.png", subItems: [] }
+    ];
+
+    // ==================== CORE FUNCTIONS ====================
+    // Format currency
+    function formatCurrency(amount) {
+      if (amount === undefined || amount === null) return 'N/A';
+      if (amount >= 1000000) return (amount / 1000000).toFixed(2) + 'M';
+      if (amount >= 1000) return (amount / 1000).toFixed(1) + 'K';
+      return Math.round(amount).toLocaleString();
+    }
+
+    // Format number
+    function formatNumber(num) {
+      if (num === undefined || num === null) return 'N/A';
+      return num.toLocaleString();
+    }
+
+    // Get item ID from name
+    function getItemId(itemName) {
+      const id = itemIdMap[itemName] || itemName.toLowerCase().replace(/ /g, '_');
+      console.log(`Mapped "${itemName}" to "${id}"`);
+      return id;
+    }
+
+    // Generate mock data for fallback
+    function generateMockData(itemId) {
+      const seed = Array.from(itemId).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const basePrice = (seed % 500) + 50;
+      const variation = Math.sin(seed) * 20;
+
+      return {
+        buyTopEntries: [{
+          price: basePrice + variation,
+          quantity: Math.floor(Math.random() * 5000) + 1000
+        }],
+        sellTopEntries: [{
+          price: basePrice + variation + (Math.random() * 10 + 5),
+          quantity: Math.floor(Math.random() * 5000) + 1000
+        }],
+        weeklyAveragePrice: basePrice + variation + 5,
+        buyVolume: Math.floor(Math.random() * 50000) + 10000,
+        sellVolume: Math.floor(Math.random() * 50000) + 10000,
+        _isMock: true
+      };
+    }
+
+    // Initialize API Proxy Client (use built-in default)
+    let apiClient = new APIProxyClient();
+
+    // Fetch bazaar data through Cloudflare Function
+    async function fetchBazaarData(itemName) {
+      const itemId = getItemId(itemName);
+      console.log(`Fetching data for: ${itemName} (ID: ${itemId})`);
+
+      try {
+        const data = await apiClient.getBazaarItem(itemId);
+        console.log(`Successfully fetched data for ${itemId}`, data);
+        return data;
+      } catch (error) {
+        console.warn(`Failed to fetch ${itemId} via Cloudflare Function, using mock data:`, error.message);
+        // Fallback to mock data
+        const mockData = generateMockData(itemId);
+        return mockData;
+      }
+    }
+
+    // Generate tooltip HTML
+    async function generateTooltipHTML(item) {
+      // If item has subItems, show sub-items grid
+      if (item.subItems && item.subItems.length > 0) {
+        const subItemsGrid = item.subItems.slice(0, 6).map(sub => `
+          <div class="sub-item" data-item='${JSON.stringify(sub).replace(/'/g, "\\'")}'>
+            <img src="img/${sub.img}" alt="${sub.name}" onerror="this.src='https://via.placeholder.com/24/8b8b8b/000?text=?'">
+            <div class="sub-item-name">${sub.name.length > 10 ? sub.name.substring(0, 8) + '...' : sub.name}</div>
+          </div>
+        `).join('');
+
+        return `
+          <div class="title">${item.name}</div>
+          <div class="sub-items-grid">
+            ${subItemsGrid}
+          </div>
+          ${item.subItems.length > 6 ? `<div style="text-align:center;color:#ccc;">+${item.subItems.length - 6} more items</div>` : ''}
+        `;
+      }
+
+      // For single items, fetch API data
+      const bazaarData = await fetchBazaarData(item.name);
+
+      const isMockData = bazaarData._isMock === true;
+      const hasError = bazaarData.error || !bazaarData.buyTopEntries;
+
+      const buyPrice = bazaarData.buyTopEntries?.[0]?.price || 0;
+      const sellPrice = bazaarData.sellTopEntries?.[0]?.price || 0;
+      const weeklyAvg = bazaarData.weeklyAveragePrice || 0;
+      const sellVolume = bazaarData.buyVolume || 0;
+      const buyVolume = bazaarData.sellVolume || 0;
+
+      const priceDiff = sellPrice - buyPrice;
+      const diffPercent = buyPrice > 0 ? (priceDiff / buyPrice * 100) : 0;
+      const diffClass = priceDiff > 0 ? 'price-up' : priceDiff < 0 ? 'price-down' : '';
+
+      let html = `<div class="title">${item.name}</div><div class="rarity">${item.rarity || ''}</div>`;
+
+      // Status badge
+      // if (hasError) {
+      //   html += `<div class="status-badge status-error">API Error</div>`;
+      // } else if (isMockData) {
+      //   html += `<div class="status-badge status-mock">Mock Data</div>`;
+      // } else {
+      //   html += `<div class="status-badge status-live">Live Data</div>`;
+      // }
+
+      html += `
+        <div class="spacer"></div>
+
+                <div class="row">
+                    <span>Buy price:</span>
+                    <span class="gold">${formatCurrency(sellPrice)}</span>
+                </div>
+                <div class="muted">Supply volume: ${formatNumber(buyVolume)}</div>
+
+                <div class="spacer"></div>
+
+                <div class="row">
+                    <span>Sell price:</span>
+                    <span class="gold">${formatCurrency(buyPrice)}</span>
+                </div>
+                <div class="muted">Demand volume: ${formatNumber(sellVolume)}</div>
+
+                <div class="spacer"></div>
+
+                <div class="row">
+                    <span>7d Avg. price:</span>
+                    <span class="gold">${formatCurrency(weeklyAvg)}</span>
+                </div>
+
+                <div class="cta">Click to view details!</div>
+      `;
+
+      // if (isMockData) {
+      //   html += `
+      //     <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #4b267a;">
+      //       <div style="color: #ff9800; font-size: 10px; text-align: center;">
+      //         Enter API key and Cloudflare Worker URL to get live data
+      //       </div>
+      //     </div>
+      //   `;
+      // }
+
+      return html;
+    }
+
+    // ==================== UI FUNCTIONS ====================
+    // Fill cells with items
+    async function fillCells(itemsList) {
+      const mainGrid = document.getElementById('mainGrid');
+      const hotbarGrid = document.getElementById('hotbarGrid');
+
+      mainGrid.innerHTML = '';
+      hotbarGrid.innerHTML = '';
+
+      // Fill main grid (36 cells)
+      for (let i = 0; i < 36; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+
+        if (i < itemsList.length) {
+          const item = itemsList[i];
+          cell.innerHTML = `
+            <div class="item-with-sub">
+              <img src="img/${item.img}" alt="${item.name}" 
+                   onerror="this.src='https://via.placeholder.com/24/8b8b8b/000?text=?'">
+              <div class="tooltip">
+                <div class="mc-frame">
+
+            <!-- Corners -->
+            <div class="mc-corner tl"></div>
+            <div class="mc-corner tr"></div>
+            <div class="mc-corner bl"></div>
+            <div class="mc-corner br"></div>
+
+            <!-- Edges -->
+            <div class="mc-edge top"></div>
+            <div class="mc-edge bottom"></div>
+            <div class="mc-edge left"></div>
+            <div class="mc-edge right"></div>
+
+            <!-- Content -->
+            <div class="mc-content loading">
+            </div>
+            </div>
+              </div>
+            </div>
+          `;
+
+          setupTooltip(cell, item);
+
+          // Click handler for items with subItems
+          if (item.subItems && item.subItems.length > 0) {
+            cell.addEventListener('click', () => {
+              fillCells(item.subItems);
+            });
+          }
+        }
+
+        mainGrid.appendChild(cell);
+      }
+
+      // Fill hotbar (9 cells)
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+
+        const itemIndex = 36 + i;
+        if (itemIndex < itemsList.length) {
+          const item = itemsList[itemIndex];
+          cell.innerHTML = `
+            <div class="item-with-sub">
+              <img src="img/${item.img}" alt="${item.name}" 
+                   onerror="this.src='https://via.placeholder.com/24/8b8b8b/000?text=?'">
+              <div class="tooltip">
+                <div class="mc-frame">
+
+            <!-- Corners -->
+            <div class="mc-corner tl"></div>
+            <div class="mc-corner tr"></div>
+            <div class="mc-corner bl"></div>
+            <div class="mc-corner br"></div>
+
+            <!-- Edges -->
+            <div class="mc-edge top"></div>
+            <div class="mc-edge bottom"></div>
+            <div class="mc-edge left"></div>
+            <div class="mc-edge right"></div>
+
+            <!-- Content -->
+            <div class="mc-content loading">
+            </div>
+            </div>
+              </div>
+            </div>
+          `;
+
+          setupTooltip(cell, item);
+
+          if (item.subItems && item.subItems.length > 0) {
+            cell.addEventListener('click', () => {
+              fillCells(item.subItems);
+            });
+          }
+        }
+
+        hotbarGrid.appendChild(cell);
+      }
+    }
+
+    // Setup tooltip for a cell
+    function setupTooltip(cell, item) {
+      const itemDiv = cell.querySelector('.item-with-sub');
+      const tooltip = itemDiv.querySelector('.tooltip');
+      const contentBox = tooltip.querySelector('.mc-content');
+
+      let timeout;
+
+      itemDiv.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(async () => {
+          tooltip.style.display = 'block';
+          contentBox.className = 'mc-content loading';
+          contentBox.innerHTML = 'Loading market data...';
+
+          const html = await generateTooltipHTML(item);
+
+          contentBox.className = 'mc-content';
+          contentBox.innerHTML = html;
+        }, 150);
+      });
+
+      itemDiv.addEventListener('mouseleave', () => {
+        clearTimeout(timeout);
+        tooltip.style.display = 'none';
+      });
+    }
+
+
+    // Position tooltip
+    function positionTooltip(cell, tooltip) {
+      const cellRect = cell.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+
+      let left = cellRect.right + 10;
+      let top = cellRect.top;
+
+      // Adjust if tooltip would go off screen
+      if (left + tooltipRect.width > window.innerWidth - 10) {
+        left = cellRect.left - tooltipRect.width - 10;
+      }
+
+      if (top + tooltipRect.height > window.innerHeight - 10) {
+        top = window.innerHeight - tooltipRect.height - 10;
+      }
+
+      if (top < 10) {
+        top = 10;
+      }
+
+      tooltip.style.left = (left - cellRect.left) + 'px';
+      tooltip.style.top = (top - cellRect.top) + 'px';
+    }
+
+    // ==================== CATEGORY NAVIGATION ====================
+    function setupCategoryNavigation() {
+      const categories = {
+        farming: farmingItems,
+        mining: miningItems,
+        combat: combatItems,
+        foraging: foragingItems,
+        special: specialItems,
+        minion: minionItems
+      };
+
+      Object.keys(categories).forEach(categoryId => {
+        document.getElementById(categoryId).addEventListener('click', () => {
+          document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('active'));
+          document.getElementById(categoryId).classList.add('active');
+          fillCells(categories[categoryId]);
+        });
+      });
+    }
+
+    // ==================== PAGE INITIALIZATION ====================
+    function initializePage() {
+      // API client is pre-configured with environment variables
+      console.log('API proxy client initialized');
+      const activeCat = document.querySelector('.cat.active');
+      if (activeCat) {
+        activeCat.click();
+      }
+    }
+
+    function showStatus(message, type = 'info') {
+      const statusDiv = document.getElementById('apiStatus');
+      statusDiv.textContent = message;
+      statusDiv.className = '';
+
+      if (type === 'error') {
+        statusDiv.style.color = '#f87171';
+        statusDiv.style.backgroundColor = '#fee2e2';
+        statusDiv.style.border = '1px solid #fca5a5';
+      } else if (type === 'success') {
+        statusDiv.style.color = '#10b981';
+        statusDiv.style.backgroundColor = '#d1fae5';
+        statusDiv.style.border = '1px solid #a7f3d0';
+      } else {
+        statusDiv.style.color = '#cbd5e1';
+        statusDiv.style.backgroundColor = 'transparent';
+        statusDiv.style.border = 'none';
+      }
+
+      // Auto-hide success messages after 5 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          statusDiv.textContent = '';
+          statusDiv.className = '';
+        }, 5000);
+      }
+    }
+
+    // ==================== INITIALIZATION ====================
+    document.addEventListener('DOMContentLoaded', function () {
+      initializePage();
+      setupCategoryNavigation();
+      fillCells(farmingItems);
+    });
+
+  </script>
+</body>
+
+</html>

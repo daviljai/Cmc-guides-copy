@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bazaar Price History</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: system-ui; background: #0f172a; color: #e5e7eb; }
+    canvas { display: block; box-sizing: border-box; height: auto; width: -webkit-fill-available; margin: 40px auto; }
+    select { padding: 8px; }
+    #itemSelect {
+  color: white;
+  background: transparent;
+  border: 1px solid;
+  padding: 9px 14px;
+}
+  </style>
+</head>
+<body>
+
+<h2>Bazaar Price History</h2>
+
+<select id="itemSelect">
+  <option value="enchanted_cobblestone">Enchanted Cobblestone</option>
+  <option value="enchanted_sugar">Enchanted Sugar</option>
+  <option value="enchanted_raw_duck">Enchanted Raw Duck</option>
+</select>
+
+<canvas id="priceChart"></canvas>
+
+<script src="/js/bazaar-chart.js"></script>
+</body>
+</html>
